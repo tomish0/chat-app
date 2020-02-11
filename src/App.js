@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Contact from "./components/Contact.js"
+import Contact from "./components/Contact.js";
+import ContactList from "./components/ContactList.jsx";
 
-const API = "https://randomuser.me/api/?results=3";
+const API = "https://randomuser.me/api/?results=5";
 
 class App extends Component {
   state = {
     hits: [
-      { name: { first: "", last: "" }, picture: { thumbnail: "" } },
-      { name: { first: "", last: "" }, picture: { thumbnail: "" } },
-      { name: { first: "", last: "" }, picture: { thumbnail: "" } }
+      { name: { first: "", last: "" }, picture: { medium: "" } },
+      { name: { first: "", last: "" }, picture: { medium: "" } },
+      { name: { first: "", last: "" }, picture: { medium: "" } },
+      { name: { first: "", last: "" }, picture: { medium: "" } },
+      { name: { first: "", last: "" }, picture: { medium: "" } }
     ],
     isLoading: false,
     error: null
@@ -54,9 +57,20 @@ class App extends Component {
           firstName={this.state.hits[2].name.first}
           lastName={this.state.hits[2].name.last}
         />
+        <ContactList contactList={this.mapOverState()} />
       </div>
     );
   }
+
+  mapOverState = () =>
+    this.state.hits.map((randomUser, index) => (
+      <Contact
+        key={index}
+        image={randomUser.picture.medium}
+        firstName={randomUser.name.first}
+        lastName={randomUser.name.last}
+      />
+    ));
 }
 
 export default App;
