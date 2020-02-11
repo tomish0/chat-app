@@ -10,8 +10,6 @@ class App extends Component {
     hits: [
       { name: { first: "", last: "" }, picture: { medium: "" } },
       { name: { first: "", last: "" }, picture: { medium: "" } },
-      { name: { first: "", last: "" }, picture: { medium: "" } },
-      { name: { first: "", last: "" }, picture: { medium: "" } },
       { name: { first: "", last: "" }, picture: { medium: "" } }
     ],
     isLoading: false,
