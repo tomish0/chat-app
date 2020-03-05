@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import "./Contact.css";
 
 class Contact extends Component {
-  state = {};
+  state = {
+    online: this.props.online
+  };
 
   render() {
     return (
@@ -12,29 +14,29 @@ class Contact extends Component {
           <h2 className="name">
             {this.props.firstName} {this.props.lastName}
           </h2>
-          {this.contactOnline(true)}
+          {this.contactOnline()}
         </div>
       </div>
     );
   }
 
-  contactOnline = online => {
-    if (online) {
-      return (
-        <div className="status">
-          <div className="status-online"></div>
-          <p className="status-text">Online</p>
-        </div>
-      );
-    } else {
-      return (
-        <div className="status">
-          <div className="status-offline"></div>
-          <p className="status-text">Offline</p>
-        </div>
-      );
-    }
-  };
+    contactOnline = () => {
+      if (this.state.online) {
+        return (
+          <div className="status">
+            <div className="status-online"></div>
+            <button className="status-text" onClick={() => this.setState({online: false})}>Online</button>
+          </div>
+        );
+      } else {
+        return (
+          <div className="status">
+            <div className="status-offline"></div>
+            <button className="status-text" onClick={() => this.setState({online: true})}>Offline</button>
+          </div>
+        );
+      }
+    };
 }
 
 export default Contact;

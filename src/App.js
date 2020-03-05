@@ -7,13 +7,10 @@ const API = "https://randomuser.me/api/?results=5";
 
 class App extends Component {
   state = {
-    hits: [
-      { name: { first: "", last: "" }, picture: { medium: "" } },
-      { name: { first: "", last: "" }, picture: { medium: "" } },
-      { name: { first: "", last: "" }, picture: { medium: "" } }
-    ],
+    hits: [],
     isLoading: false,
-    error: null
+    error: null,
+    online: 1
   };
 
   componentDidMount() {
@@ -22,7 +19,6 @@ class App extends Component {
     axios
       .get(API)
       .then(result => {
-        console.log(result.data.results);
         this.setState({
           hits: result.data.results,
           isLoading: false
@@ -36,39 +32,29 @@ class App extends Component {
       );
   }
 
-  render() {
-    // console.log(this.state.hits);
-    return (
-      <div>
-        <Contact
-          image={this.state.hits[0].picture.medium}
-          firstName={this.state.hits[0].name.first}
-          lastName={this.state.hits[0].name.last}
-        />
-        <Contact
-          image={this.state.hits[1].picture.medium}
-          firstName={this.state.hits[1].name.first}
-          lastName={this.state.hits[1].name.last}
-        />
-        <Contact
-          image={this.state.hits[2].picture.medium}
-          firstName={this.state.hits[2].name.first}
-          lastName={this.state.hits[2].name.last}
-        />
-        <ContactList contactList={this.mapOverState()} />
-      </div>
-    );
-  }
+  applyRandomOnline = () => {
+    var online = Math.floor(Math.random() * 2 + 1);
+    return online === 1 ? true : false;
+  };
 
   mapOverState = () =>
     this.state.hits.map((randomUser, index) => (
       <Contact
+        online={this.applyRandomOnline()}
         key={index}
         image={randomUser.picture.medium}
         firstName={randomUser.name.first}
         lastName={randomUser.name.last}
       />
     ));
+
+  render() {
+    return (
+      <div>
+        <ContactList contactList={this.mapOverState()} />
+      </div>
+    );
+  }
 }
 
 export default App;
